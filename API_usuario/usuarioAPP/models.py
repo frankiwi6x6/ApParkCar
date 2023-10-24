@@ -19,8 +19,8 @@ class cliente(models.Model):
     class Meta:
         db_table = 'clientes'
 
-    #def __str__(self):
-    #    return self.nombre
+    def __str__(self):
+       return self.nombre
 
 class duenno(models.Model):
     nombre = models.CharField(max_length=50, default='DEFAULT VALUE')
@@ -34,5 +34,5 @@ class duenno(models.Model):
     class Meta:
         db_table = 'duennos'
 
-    #def __str__(self):
-    #    return self.nombre
+    def __str__(self):
+       return self.nombre

@@ -13,6 +13,7 @@ class calificacionUsuario(models.Model):
 
     class Meta:
         db_table = 'calificacion'
+        app_label = 'calificacionAPP'
     
     def __str__(self):
        return self.nombre

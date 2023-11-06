@@ -1,0 +1,5 @@
+CONTAINER ID   IMAGE                COMMAND                  CREATED      STATUS                     PORTS                                       NAMES
+a7eb910c28f5   ec2-user_web         "python /APPARKCAR/A…"   4 days ago   Up 4 minutes               0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   ec2-user_web_1
+b246f217cdd7   ec2-user_migration   "python /APPARKCAR/A…"   4 days ago   Exited (0) 4 minutes ago                                               ec2-user_migration_1
+c5dc36173143   mysql:5.7            "docker-entrypoint.s…"   4 days ago   Up 5 minutes (healthy)     3306/tcp, 33060/tcp                         ec2-user_mysql_db_1
+663565ea487d   99e007ef4980         "/bin/sh -c 'pip ins…"   4 days ago   Exited (1) 4 days ago                                                  loving_keller

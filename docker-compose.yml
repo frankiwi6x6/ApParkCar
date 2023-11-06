@@ -1,0 +1,42 @@
+version: '2.1'
+services:
+  mysql_db:
+    image: mysql:5.7
+    environment:   # Set up mysql database name and password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: apparkcar
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+    healthcheck: 
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] 
+            timeout: 20s  
+            retries: 10
+    networks:
+      - app-tier
+  web:
+    build: .
+    depends_on:
+            - migration
+            - mysql_db
+    volumes:
+        - .:/APPARKCAR
+    networks:
+      - app-tier
+    ports:
+      - "8000:8000"
+    command: python /APPARKCAR/APPARKCAR/API_calificacion/manage.py runserver 0:8000
+  
+  migration:
+    build: .
+    volumes:
+      - .:/APPARKCAR
+    depends_on:
+        mysql_db:
+                 condition: service_healthy
+    networks:
+      - app-tier
+    command: python /APPARKCAR/APPARKCAR/API_calificacion/manage.py migrate
+   
+networks:
+  app-tier:
+    driver: bridge

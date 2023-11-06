@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-&-ldw9a@s$db^e6^az7m=^zz326h7mqndoil74@6f65(5h%()5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+IP_AWS = 'localhost'
+ALLOWED_HOSTS = [ IP_AWS , 
+                 '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'usuarioAPP',
+    'rest_framework'
+
 ]
 
 MIDDLEWARE = [
@@ -77,6 +82,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'apparkcar',
+        'USER': 'mysql',
+        'PASSWORD': 'password',
+        'HOST': 'mysql_db',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
@@ -116,7 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+REST_FRAMEWORK = {'DEFAULT_RENDERED_CLASSES':('rest_framework.renderers.JSONRenderer',),
+}
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

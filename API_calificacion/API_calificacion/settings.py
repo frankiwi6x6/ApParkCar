@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-!bknv0qv^(lp%sihdw2j(!^f7d^cfbvdxdk0u=-x_k8i7dulj@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',
+IP_AWS = 'localhost'
+ALLOWED_HOSTS = [ IP_AWS ,
                  '127.0.0.1']
 
 
@@ -38,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'calificacionAPP',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -80,10 +81,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'apparkcar',
+        'USER': 'mysql',
+        'PASSWORD': 'password',
+        'HOST': 'mysql_db',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -119,14 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
+REST_FRAMEWORK = {'DEFAULT_RENDERED_CLASSES':('rest_framework.renderers.JSONRenderer',),
 }
 
 # Default primary key field type

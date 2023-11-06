@@ -16,7 +16,7 @@ def CalificacionUsuariosLista(request):
 
 @api_view(['GET'])
 def CalificacionUsuariosDetalle(request, pk):
-    calificacionusuarios = calificacionUsuario.objects.get(id=pk)
+    calificacionusuarios = calificacionUsuario.objects.get(id_calificacion=pk)
     serializer = CalificacionUsuariosSerializer(calificacionusuarios, many=False)
     return Response(serializer.data)
 
@@ -32,7 +32,7 @@ def CalificacionUsuariosCrear(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def CalificacionUsuariosActualizar(request, pk):
     calificacionusuarios = calificacionUsuario.objects.get(id=pk)
     serializer = CalificacionUsuariosSerializer(instance=calificacionusuarios, data=request.data)

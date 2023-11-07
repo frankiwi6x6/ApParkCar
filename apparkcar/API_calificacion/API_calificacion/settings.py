@@ -83,17 +83,17 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'apparkcar',
-        'USER': 'mysql',
-        'PASSWORD': 'password',
-        'HOST': 'mysql_db',
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'apparkcar',
+    #     'USER': 'mysql',
+    #     'PASSWORD': 'password',
+    #     'HOST': 'mysql_db',
+    #     'PORT': '3306',
+    #     'OPTIONS': {
+    #         'sql_mode': 'traditional',
+    #     }
+    # }
 }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

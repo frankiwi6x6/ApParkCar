@@ -7,21 +7,12 @@ from rest_framework.decorators import api_view
 # Create your views here.
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def CalificacionUsuariosLista(request):
     calificacionusuarios = calificacionUsuario.objects.all()
     serializer = CalificacionUsuariosSerializer(calificacionusuarios, many=True)
     return Response(serializer.data)
-
-
-@api_view(['GET'])
-def CalificacionUsuariosDetalle(request, pk):
-    calificacionusuarios = calificacionUsuario.objects.get(id_calificacion=pk)
-    serializer = CalificacionUsuariosSerializer(calificacionusuarios, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['POST'])
+    
 def CalificacionUsuariosCrear(request):
     serializer = CalificacionUsuariosSerializer(data=request.data)
     if serializer.is_valid():
@@ -30,6 +21,15 @@ def CalificacionUsuariosCrear(request):
         return Response(serializer.errors)
 
     return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+def CalificacionUsuariosDetalle(request, pk):
+    calificacionusuarios = calificacionUsuario.objects.get(id_calificacion=pk)
+    serializer = CalificacionUsuariosSerializer(calificacionusuarios, many=False)
+    return Response(serializer.data)
+
 
 
 @api_view(['PUT'])

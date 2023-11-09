@@ -7,7 +7,7 @@ class calificacionUsuario(models.Model):
     id_calificacion = models.AutoField(primary_key=True)
     id_usuario = models.IntegerField()
     id_calificado = models.IntegerField()
-    calificacion = models.IntegerField()
+    calificacion = models.FloatField()
     comentario = models.CharField(max_length=100, default='DEFAULT VALUE')
     fecha = models.DateField()
 

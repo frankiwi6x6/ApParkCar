@@ -19,23 +19,25 @@ services:
             - migration
             - mysql_db
     volumes:
-        - .:/APPARKCAR
+        - .:/apparkcar
     networks:
       - app-tier
     ports:
       - "8000:8000"
-    command: python /APPARKCAR/APPARKCAR/API_calificacion/manage.py runserver 0:8000
+    command: python /apparkcar/apparkcar/API_calificacion/manage.py runserver 0:8000
   
   migration:
     build: .
     volumes:
-      - .:/APPARKCAR
+      - .:/apparkcar
     depends_on:
         mysql_db:
                  condition: service_healthy
     networks:
       - app-tier
-    command: python /APPARKCAR/APPARKCAR/API_calificacion/manage.py migrate
+    command: python /apparkcar/apparkcar/API_calificacion/manage.py makemigrations --noinput
+    command: python /apparkcar/apparkcar/API_calificacion/manage.py migrate
+
    
 networks:
   app-tier:

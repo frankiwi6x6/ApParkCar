@@ -1,0 +1,56 @@
+{% extends 'web/base.html' %}
+{% block title %}Registro de usuario{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Registro de usuario</h1>
+        <form action="{% url 'frontendAPP:register' %}" method="POST">
+            {% csrf_token %}
+
+            <fieldset>
+                <legend>Información personal</legend>
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email:</label>
+                    <input id="id_email" type="email" name="email" maxlength="100" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_nombre" class="form-label">Nombre:</label>
+                    <input id="id_nombre" type="text" name="nombre" maxlength="100" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_ApPaterno" class="form-label">Apellido Paterno:</label>
+                    <input id="id_ApPaterno" type="text" name="ApPaterno" maxlength="100" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_ApMaterno" class="form-label">Apellido Materno:</label>
+                    <input id="id_ApMaterno" type="text" name="ApMaterno" maxlength="100" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
+                    <input id="id_fecha_nacimiento" type="date" name="fecha_nacimiento" class="form-control" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Contraseña</legend>
+                <div class="mb-3">
+                    <label for="id_password" class="form-label">Contraseña:</label>
+                    <input id="id_password" type="password" name="password" maxlength="100" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_confirmarPassword" class="form-label">Confirmar contraseña:</label>
+                    <input id="id_confirmarPassword" type="password" name="confirmarPassword" maxlength="100" class="form-control" required>
+                </div>
+            </fieldset>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" name="tipo_usuario" id="id_tipo_usuario" class="form-check-input" value="True">
+                <label for="id_tipo_usuario" class="form-check-label">¿Quiere ser cliente?</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrar</button>
+
+            <p class="mt-3"><a href="{% url 'frontendAPP:iniciar_sesion' %}">¿Ya tienes cuenta? ¡Inicia sesión aquí!</a></p>
+        </form>
+    </div>
+{% endblock %}

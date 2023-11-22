@@ -7,4 +7,5 @@ urlpatterns = [
     path('crear/', views.CalificacionUsuariosCrear, name="crear"),
     path('<str:pk>', views.CalificacionUsuariosActualizar, name="actualizar"),
     path('<str:pk>', views.CalificacionUsuariosEliminar, name="eliminar"),
+    path('calificaciones/<str:pk>', views.obtenerCalificacionUsuario, name="obtenerCalificacionUsuario"),
 ]

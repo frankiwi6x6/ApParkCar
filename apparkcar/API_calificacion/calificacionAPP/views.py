@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import calificacionUsuario
 from .serializers import CalificacionUsuariosSerializer
 from rest_framework.decorators import api_view
-
+from django.db.models import Avg
 # Create your views here.
 
 
@@ -52,4 +52,15 @@ def CalificacionUsuariosCrear(request):
 
     return Response(serializer.data)
 
-
+@api_view(['GET'])
+def obtenerCalificacionUsuario(request, pk):
+    # Obtener la lista de calificaciones de usuario
+    lista_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk)
+    
+    # Obtener el promedio de calificaciones
+    promedio_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk).aggregate(Avg('calificacion'))
+    
+    serializer = CalificacionUsuariosSerializer(lista_calificaciones, many=True)
+    
+    # Puedes devolver tanto la lista completa como el promedio en la respuesta
+    return Response({'calificaciones': serializer.data, 'promedio_calificacion': promedio_calificaciones['calificacion__avg']})

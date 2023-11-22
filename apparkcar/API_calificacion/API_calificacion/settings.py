@@ -27,7 +27,7 @@ DEBUG = True
 
 IP_AWS = '54.146.167.224'
 ALLOWED_HOSTS = [IP_AWS,
-                 '127.0.0.1']
+'184.73.50.236', '127.0.0.1']
 
 
 # Application definition

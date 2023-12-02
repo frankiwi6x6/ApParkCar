@@ -4,6 +4,8 @@ from .models import calificacionUsuario
 from .serializers import CalificacionUsuariosSerializer
 from rest_framework.decorators import api_view
 from django.db.models import Avg
+
+from django.http import JsonResponse, HttpResponse
 # Create your views here.
 
 
@@ -52,15 +54,21 @@ def CalificacionUsuariosCrear(request):
 
     return Response(serializer.data)
 
-@api_view(['GET'])
 def obtenerCalificacionUsuario(request, pk):
-    # Obtener la lista de calificaciones de usuario
-    lista_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk)
-    
-    # Obtener el promedio de calificaciones
-    promedio_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk).aggregate(Avg('calificacion'))
-    
-    serializer = CalificacionUsuariosSerializer(lista_calificaciones, many=True)
-    
-    # Puedes devolver tanto la lista completa como el promedio en la respuesta
-    return Response({'calificaciones': serializer.data, 'promedio_calificacion': promedio_calificaciones['calificacion__avg']})
+    try:
+        pk = int(pk)
+    except ValueError:
+        return JsonResponse({'error': 'El ID de usuario debe ser un número entero'}, status=400)
+
+    try:
+        lista_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk)
+        promedio_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk).aggregate(Avg('calificacion'))
+        promedio_calificacion = round(promedio_calificaciones['calificacion__avg'], 2)
+        serializer = CalificacionUsuariosSerializer(lista_calificaciones, many=True)
+        return JsonResponse({'calificaciones': serializer.data, 'promedio_calificacion': promedio_calificacion})
+
+    except calificacionUsuario.DoesNotExist:
+        return JsonResponse({'error': 'Usuario no encontrado'}, status=404)
+
+    except Exception as e:
+        return JsonResponse({'error': f'Error en la solicitud: {str(e)}'}, status=500)

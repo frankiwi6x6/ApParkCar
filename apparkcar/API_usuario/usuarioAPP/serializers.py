@@ -1,13 +1,7 @@
 from rest_framework import serializers
-from .models import cliente, duenno
+from .models import Usuario
 
-
-class ClienteSerializer(serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = cliente
-        fields = '__all__'
-
-class DuennoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = duenno
+        model = Usuario
         fields = '__all__'

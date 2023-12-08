@@ -1,38 +1,25 @@
+import uuid
+from django.contrib.auth.models import User
 from django.db import models
-
-# Create your models here.
-from django.db import models
-from django.utils import timezone
+import os
 
 
-class cliente(models.Model):
+def generate_filename(instance, filename):
+    filename = f"{instance.username}_profile-pic.png"
+    return os.path.join('profile_pics', filename)
+
+class Usuario(models.Model):
+    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=50, unique=True)
     nombre = models.CharField(max_length=50, default='DEFAULT VALUE')
-    email = models.CharField(max_length=100, default='DEFAULT VALUE')
     ApPaterno = models.CharField(max_length=50, default='DEFAULT VALUE')
     ApMaterno = models.CharField(max_length=50, default='DEFAULT VALUE')
-    password = models.CharField(max_length=100, default='DEFAULT VALUE')
     fecha_nacimiento = models.DateField()
-    id_cliente = models.AutoField(primary_key=True)
-
-
-
-    class Meta:
-        db_table = 'clientes'
-
+    es_cliente = models.BooleanField(default=True)
+    password = models.CharField(max_length=50, default='password')
+    profile_pic = models.ImageField(upload_to=generate_filename, blank=True, default='profile_pics/default.png')
+    def profile_pic_url(self):
+        return f'http://127.0.0.1:8000/gestion/usuario/{self.username}/profile-pic/'
+        
     def __str__(self):
-       return self.nombre
-
-class duenno(models.Model):
-    nombre = models.CharField(max_length=50, default='DEFAULT VALUE')
-    email = models.CharField(max_length=100, default='DEFAULT VALUE')
-    ApPaterno = models.CharField(max_length=50, default='DEFAULT VALUE')
-    ApMaterno = models.CharField(max_length=50, default='DEFAULT VALUE')
-    password = models.CharField(max_length=100, default='DEFAULT VALUE')
-    fecha_nacimiento = models.DateField()
-    id_duenno = models.AutoField(primary_key=True)
-
-    class Meta:
-        db_table = 'duennos'
-
-    def __str__(self):
-       return self.nombre
+        return self.email

@@ -1,3 +1,4 @@
+
 version: '2.1'
 services:
   mysql_db:
@@ -7,16 +8,16 @@ services:
       MYSQL_DATABASE: apparkcar
       MYSQL_USER: mysql
       MYSQL_PASSWORD: password
-    healthcheck: 
-            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] 
-            timeout: 20s  
+    healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
             retries: 10
     networks:
       - app-tier
-  web:
+  ms-apparkcar-usuario:
     build: .
     depends_on:
-            - migration
+            - migrations
             - mysql_db
     volumes:
         - .:/apparkcar
@@ -24,9 +25,9 @@ services:
       - app-tier
     ports:
       - "8000:8000"
-    command: python /apparkcar/apparkcar/API_calificacion/manage.py runserver 0:8000
-  
-  migration:
+    command: python /apparkcar/apparkcar/API_usuario/manage.py runserver 127.0.0.1:8000
+
+  migrations:
     build: .
     volumes:
       - .:/apparkcar
@@ -35,10 +36,42 @@ services:
                  condition: service_healthy
     networks:
       - app-tier
-    command: python /apparkcar/apparkcar/API_calificacion/manage.py makemigrations --noinput
-    command: python /apparkcar/apparkcar/API_calificacion/manage.py migrate
+    command: python /apparkcar/apparkcar/API_usuario/manage.py makemigrations --noinput &&
+             python /apparkcar/apparkcar/API_usuario/manage.py migrate &&
+             python /apparkcar/apparkcar/API_estacionamientos/manage.py makemigrations --noinput &&
+             python /apparkcar/apparkcar/API_estacionamientos/manage.py migrate &&
+             python /apparkcar/apparkcar/API_calificacion/manage.py makemigrations --noinput &&
+             python /apparkcar/apparkcar/API_calificacion/manage.py migrate
 
-   
+
+  ms-apparkcar-calificacion:
+      build: .
+      depends_on:
+              - migrations
+              - mysql_db
+      volumes:
+          - .:/apparkcar
+      networks:
+        - app-tier
+      ports:
+        - "8001:8001"
+      command: python /apparkcar/apparkcar/API_calificacion/manage.py runserver 127.0.0.1:8001
+
+  ms-apparkcar-estacionamiento:
+    build: .
+    depends_on:
+            - migrations
+            - mysql_db
+    volumes:
+        - .:/apparkcar
+    networks:
+      - app-tier
+    ports:
+      - "8002:8002"
+    command: python /apparkcar/apparkcar/API_estacionamientos/manage.py runserver 127.0.0.1:8002
+
+
 networks:
   app-tier:
     driver: bridge
+

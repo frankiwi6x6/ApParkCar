@@ -4,4 +4,9 @@ RUN apk add gcc musl-dev mariadb-connector-c-dev
 WORKDIR /apparkcar
 COPY apparkcar .
 RUN pip install -r API_calificacion/requirements.txt
+RUN pip install -r API_estacionamientos/requirements.txt
+RUN pip install -r API_usuario/requirements.txt
 EXPOSE 8000
+EXPOSE 8001
+EXPOSE 8002
+

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&-ldw9a@s$db^e6^az7m=^zz326h7mqndoil74@6f65(5h%()5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-IP_AWS = '18.210.214.181'
+IP_AWS = '54.146.167.224'
 ALLOWED_HOSTS = [IP_AWS,
                 'localhost',
                 '127.0.0.1',

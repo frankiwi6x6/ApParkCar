@@ -24,7 +24,7 @@ services:
       - app-tier
     ports:
       - "8000:8000"
-    command: python /apparkcar/apparkcar/API_usuario/manage.py runserver 127.0.0.1:8000
+    command: python /apparkcar/apparkcar/API_usuario/manage.py runserver 0:8000
 
   migrations:
     build: .
@@ -54,7 +54,7 @@ services:
         - app-tier
       ports:
         - "8001:8001"
-      command: python /apparkcar/apparkcar/API_calificacion/manage.py runserver 127.0.0.1:8001
+      command: python /apparkcar/apparkcar/API_calificacion/manage.py runserver 0:8001
 
   ms-apparkcar-estacionamiento:
     build: .
@@ -67,7 +67,7 @@ services:
       - app-tier
     ports:
       - "8002:8002"
-    command: python /apparkcar/apparkcar/API_estacionamientos/manage.py runserver 127.0.0.1:8002
+    command: python /apparkcar/apparkcar/API_estacionamientos/manage.py runserver 0:8002
   ms-apparkcar-reservas:
     build: .
     depends_on:
@@ -79,7 +79,7 @@ services:
       - app-tier
     ports:
       - "8003:8003"
-    command: python /apparkcar/apparkcar/API_reservas/manage.py runserver 127.0.0.1:8003
+    command: python /apparkcar/apparkcar/API_reservas/manage.py runserver 0:8003
 
 
 networks:

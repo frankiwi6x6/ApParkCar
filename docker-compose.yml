@@ -68,7 +68,7 @@ services:
     ports:
       - "8002:8002"
     command: python /apparkcar/apparkcar/API_estacionamientos/manage.py runserver 127.0.0.1:8002
-ms-apparkcar-reservas:
+  ms-apparkcar-reservas:
     build: .
     depends_on:
             - migrations

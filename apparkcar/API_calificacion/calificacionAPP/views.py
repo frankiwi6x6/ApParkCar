@@ -72,3 +72,44 @@ def obtenerCalificacionUsuario(request, pk):
 
     except Exception as e:
         return JsonResponse({'error': f'Error en la solicitud: {str(e)}'}, status=500)
+    
+
+@api_view(['GET'])
+def obtenerCalificacion (request, from_user, to_user):
+    try:
+        from_user = int(from_user)
+        to_user = int(to_user)
+    except ValueError:
+        return JsonResponse({'error': 'El ID de usuario debe ser un número entero'}, status=400)
+
+    try:
+        calificacion = calificacionUsuario.objects.get(id_usuario=from_user, id_calificado=to_user)
+        serializer = CalificacionUsuariosSerializer(calificacion, many=False)
+        return JsonResponse({'calificacion': serializer.data})
+
+    except calificacionUsuario.DoesNotExist:
+        return JsonResponse({'error': 'Calificación no encontrada'}, status=404)
+
+    except Exception as e:
+        return JsonResponse({'error': f'Error en la solicitud: {str(e)}'}, status=500)
+
+@api_view(['PUT'])
+def actualizarCalificacion(request, from_user, to_user, calificacion):
+    try:
+        from_user = int(from_user)
+        to_user = int(to_user)
+        calificacion = int(calificacion)
+    except ValueError:
+        return JsonResponse({'error': 'El ID de usuario debe ser un número entero'}, status=400)
+
+    try:
+        calificacion = calificacionUsuario.objects.get(id_usuario=from_user, id_calificado=to_user)
+        calificacion.calificacion = calificacion
+        calificacion.save()
+        return JsonResponse({'success': 'Calificación actualizada correctamente'})
+
+    except calificacionUsuario.DoesNotExist:
+        return JsonResponse({'error': 'Calificación no encontrada'}, status=404)
+
+    except Exception as e:
+        return JsonResponse({'error': f'Error en la solicitud: {str(e)}'}, status=500)

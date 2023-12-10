@@ -141,7 +141,7 @@ def UsuarioDetallePorUsuario(request, username):
 
     # Incluir la URL de la foto del perfil en la respuesta JSON
     data = serializer.data
-    data['profile_pic_url'] = f'http://127.0.0.1:8000/gestion/usuario/{username}/profile-pic/'
+    data['profile_pic_url'] = f'http:///3.91.111.224:8000/gestion/usuario/{username}/profile-pic/'
 
     return JsonResponse(data, status=200)
 
@@ -188,7 +188,7 @@ def buscar_usuario(request, username):
     # Modificar la respuesta JSON para incluir la URL de la foto del perfil
     data = serializer.data
     for user_data in data:
-        user_data['profile_pic_url'] = f'http://127.0.0.1:8000/gestion/usuario/{user_data["username"]}/profile-pic/'
+        user_data['profile_pic_url'] = f'http:///3.91.111.224:8000/gestion/usuario/{user_data["username"]}/profile-pic/'
 
     return JsonResponse(data, safe=False)
 

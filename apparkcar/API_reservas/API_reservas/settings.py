@@ -78,11 +78,9 @@ WSGI_APPLICATION = 'API_reservas.wsgi.application'
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8100",
-    "http://localhost:8100",
-    "http://184.73.50.236:8100"
+    "http://44.194.18.69:8100",
+    "http://localhost:8100", 
 ]
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 

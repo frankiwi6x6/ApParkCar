@@ -62,8 +62,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8100",
-    "http://localhost:8100"
+    "http://44.194.18.69:8100",
+    "http://localhost:8100", 
 ]
 ROOT_URLCONF = 'API_usuario.urls'
 

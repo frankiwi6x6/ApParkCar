@@ -59,7 +59,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'API_reportes.urls'
-
+CORS_ALLOWED_ORIGINS = [
+    "http://44.194.18.69:8100",
+    "http://localhost:8100", 
+]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

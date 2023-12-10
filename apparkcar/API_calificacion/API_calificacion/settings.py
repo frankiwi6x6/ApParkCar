@@ -57,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "http://44.194.18.69:8100",
     "http://localhost:8100", 
 ]
 ROOT_URLCONF = 'API_calificacion.urls'

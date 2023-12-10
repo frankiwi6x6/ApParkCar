@@ -62,6 +62,10 @@ def obtenerCalificacionUsuario(request, pk):
 
     try:
         lista_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk)
+        
+        if len(lista_calificaciones) == 0:
+            promedio_calificacion = 0
+            return JsonResponse({'error': 'El usuario no ha sido calificado', 'promedio_calificacion': promedio_calificacion}, status=404)
         promedio_calificaciones = calificacionUsuario.objects.filter(id_calificado=pk).aggregate(Avg('calificacion'))
         promedio_calificacion = round(promedio_calificaciones['calificacion__avg'], 2)
         serializer = CalificacionUsuariosSerializer(lista_calificaciones, many=True)

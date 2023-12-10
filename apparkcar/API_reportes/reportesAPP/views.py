@@ -8,9 +8,9 @@ import requests
 @api_view(['GET'])
 def reportePagos(request, idDuenno, fechaInicio):
     if request.method == 'GET':
-        URL_ESTACIONAMIENTOS = f'http://54.146.167.224:8002/estacionamientos/duenno/{idDuenno}/'
+        URL_ESTACIONAMIENTOS = f'http://3.91.111.224:8002/estacionamientos/duenno/{idDuenno}/'
 
-        IP_RESERVAS = '127.0.0.1'
+        IP_RESERVAS = '3.91.111.224'
         estacionamientos = requests.get(URL_ESTACIONAMIENTOS)
         print(estacionamientos)
         allBooking = []

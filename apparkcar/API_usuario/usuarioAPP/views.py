@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import binascii
 from django.contrib.staticfiles import finders
-
+import datetime as dt
 
 # Create your views here.
 
@@ -66,7 +66,15 @@ def ClienteCrear(request):
         serializer.save()
     else:
         return Response(serializer.errors)
-
+    #Generar calificación vacía hacia la API mediante POST:
+    URL_CALIFICACIONES = 'http://3.91.111.224:8001/calificacion/crear/'
+    data = {
+        "id_usuario": -1,
+        "id_calificado": serializer.data['id'],
+        "calificacion": 0,
+        "comentario": "Usuario creado",
+        "fecha": dt.now()}
+    requests.post(URL_CALIFICACIONES, data=data)
     return Response(serializer.data)
 
 
@@ -94,6 +102,7 @@ def ClienteEliminar(request, pk):
 def DuennoLista(request):
     duennos = Usuario.objects.filter(es_cliente=False)
     serializer = UsuarioSerializer(duennos, many=True)
+    
     return Response(serializer.data)
 
 
@@ -105,13 +114,29 @@ def DuennoDetalle(request, pk):
 
 @api_view(['POST']) 
 def DuennoCrear(request):
+    
     serializer = UsuarioSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
+        
+        
+        
+        
     else:
         return Response(serializer.errors)
 
+    #Generar calificación vacía hacia la API mediante POST:
+    URL_CALIFICACIONES = 'http://3.91.111.224:8001/calificacion/crear/'
+    data = {
+        "id_usuario": -1,
+        "id_calificado": serializer.data['id'],
+        "calificacion": 0,
+        "comentario": "Usuario creado",
+        "fecha": dt.now()}
+    requests.post(URL_CALIFICACIONES, data=data)
     return Response(serializer.data)
+
+        
 
 
 

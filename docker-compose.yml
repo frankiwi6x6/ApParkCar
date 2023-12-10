@@ -41,6 +41,10 @@ services:
              python /apparkcar/apparkcar/API_estacionamientos/manage.py migrate &&
              python /apparkcar/apparkcar/API_calificacion/manage.py makemigrations --noinput &&
              python /apparkcar/apparkcar/API_calificacion/manage.py migrate
+             python /apparkcar/apparkcar/API_reservas/manage.py makemigrations --noinput &&
+             python /apparkcar/apparkcar/API_reservas/manage.py migrate
+             python /apparkcar/apparkcar/API_reportes/manage.py makemigrations --noinput &&
+             python /apparkcar/apparkcar/API_reportes/manage.py migrate
 
 
   ms-apparkcar-calificacion:
@@ -80,6 +84,18 @@ services:
     ports:
       - "8003:8003"
     command: python /apparkcar/apparkcar/API_reservas/manage.py runserver 0:8003
+  ms-apparkcar-reportes:
+    build: .
+    depends_on:
+            - migrations
+            - mysql_db
+    volumes:
+        - .:/apparkcar
+    networks:
+      - app-tier
+    ports:
+      - "8004:8004"
+    command: python /apparkcar/apparkcar/API_reportes/manage.py runserver 0:8004
 
 
 networks:
